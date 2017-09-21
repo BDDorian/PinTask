@@ -1,0 +1,32 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="StyleInscription.css">
+    
+<title> PinTask : Création du compte</title>
+<body>
+    <div>
+        <div class="ConteneurTitle">
+            <h1 class="registerTitle"> Création de votre nouveau compte </h1>
+        </div>
+
+        <div class="ConteneurChamp">     
+            <!-- Création d'un formulaire avec des label pour remplir les champs -->
+            <p>Veuillez remplir l'intégralité des champs ci-dessous:</p>
+            <form action="/inscription.html" method="POST">
+            <label for="nom">Nom:</label><input type="text" class="nomAccount"/>
+            <label for="prenom">Prénom:</label><input type="text" class="surnameAccount"/>
+            <label for="pseudo">Pseudo:</label><input type="text" class="pseudoAccount" />
+            <label for="motDePasse">Mot de passe:</label><input type ="text" class="passwordAccount" />
+            <label for="mail">Mail:</label><input type="text" class="mailAccount" />
+            </form> 
+            <!-- Le bouton valider sera lié à la BDD pour envoyer les champs du formulaire -->
+            <p class = "validateButton">
+            <button class="validateCreationAccountButton" type="submit">Envoyer</button>    
+            </p>    
+       </div>   
+   <div>          
+</body>
+</head>
+</html>
+ 

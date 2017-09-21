@@ -1,0 +1,35 @@
+<html>
+<head>
+    <!-- J'ai crée plein de fichier css, un pour chaque page. Je sais que ce n'est pas la bonne méthode.
+    Je vais regrouper tout en un, mais c'était juste histoire de remplir et de personnaliser les pages.
+    -->
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="StyleAccueil.css">
+</head>   
+<title> PinTask : Organiser votre travail.</title>
+<body>
+    <!-- Division des principaux éléments en conteneur. Cela tendra à disparaître mais c'était pour m'habituer à bien utiliser flexbox. -->
+    <div>
+        <div class ="Conteneur1">Element
+            <h1 class ="mainTitle"> Bienvenue sur Pintask !</h1>
+        </div>
+        <div class ="Conteneur2">Element2
+            <p class="newMember" >Vous êtes nouveau ici ? Inscrivez-vous : </p>
+            <p class = "registerButton">
+                <!-- Prochainement, insérer un bouton cliquable pour accéder à la page suivante. -->
+            <a  href="Inscription.html"<button name="inscripButton" id = "inscripButton" onclick="Inscription.html"> S'inscrire</button></a>
+            </p>
+        </div>
+        <div class="Conteneur3">Element3
+            <p class="alreadyMember"> Déjà inscrit ? Indiquez votre pseudo et votre mot de passe </p>    
+            <p class = "enterPseudo" >Pseudo :<input type="text" value="" name="registerPseudo" id="registerPseudo"> <p>
+            <p class ="enterPwd"> Mot de Passe:<input type = "text" value="" name="registerPwd" id= "registerPwd"></p>
+            <p class ="validateRegistration">
+                <!-- Prochainement, insérer un bouton cliquable pour accéder à la page suivante. -->
+            <a href="ChoixListe.html" <button name="validateButton" id="validateButton" onclick="ChoixListe.html">Valider</button></a>
+        </div>
+   </div>
+</body>
+
+</html>
+ 

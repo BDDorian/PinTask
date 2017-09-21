@@ -1,0 +1,97 @@
+.mainTitle
+{
+    text-align: center;
+}
+
+p{
+    text-align: center;
+}
+
+
+
+label
+{
+    display: block;
+    width: 50px;
+    
+}
+
+form
+{
+    text-align: left;
+}
+
+.titleTODO
+{
+    text-align: left;
+}
+
+.titleINPROGRESS
+{
+    text-align: center;
+}
+
+.titleTOVERIFY
+{
+    text-align: right;
+}
+
+.titleDONE
+{
+    text-align: right;
+}
+
+.formTODO
+{
+    text-align: right;
+    display: inline-flex;
+}
+
+.formINPROGRESS
+{
+    text-align: center;
+}
+
+.formTOVERIFY
+{
+    text-align: right;
+}
+
+.formDONE
+{
+    text-align: right;
+}
+
+.divTitle
+{
+    display: flex;
+    background-color: blue;
+    justify-content: center;
+    align-items: center; 
+}
+
+.divInprogress{
+    background-color: blue;
+    justify-content: flex-start;
+}
+
+.divTodo
+{
+    background-color: red;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.divToverify
+{
+    background-color: green;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.divDone
+{
+    background-color: yellow;
+    display: flex;
+    justify-content: flex-start;
+}

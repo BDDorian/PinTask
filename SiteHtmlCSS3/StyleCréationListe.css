@@ -1,0 +1,31 @@
+.mainTitle
+{
+    text-align: center;
+}
+
+p{
+    text-align: center;
+}
+
+
+
+label
+{
+    display: block;
+    
+}
+
+form
+{
+    text-align: center;
+}
+
+.ConteneurTitle
+{
+    background-color: red;
+}
+
+.ConteneurChampListe
+{
+    background-color: blue;
+}

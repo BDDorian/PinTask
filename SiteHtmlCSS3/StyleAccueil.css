@@ -1,0 +1,73 @@
+.mainTitle
+{
+    color: black;
+    font-size: 30px;
+    font-family: 'Trebuchet MS';
+    text-align: center;
+}
+
+.newMember
+{
+    font-size: 15px;
+    color: darkblue;
+    font-family: 'Trebuchet MS';
+    text-align: center;
+}
+
+.alreadyMember
+{
+    font-size: 15px;
+    color: darkred;
+    font-family: 'Trebuchet MS';
+    text-align: center;
+}
+
+.registerButton
+{
+    text-align: center;
+}
+
+.enterPseudo
+{
+    text-align: center;
+}
+
+.enterPwd
+{
+    text-align: center;
+}
+
+.validateRegistrationButton
+{
+    text-align: center;
+}
+
+.validateRegistration
+{
+    text-align: center;       
+}
+
+body
+
+{
+
+    background: url("pin.jpg") fixed no-repeat top right, fixed;
+
+}
+
+
+.Conteneur1
+{
+    background-color: red;
+}
+
+.Conteneur2
+{
+    background-color: blue;
+}
+
+.Conteneur3
+{
+    background-color: green;
+}
+

@@ -1,0 +1,40 @@
+.registerTitle
+{
+    text-align: center;
+    font-family: 'Trebuchet MS';
+    
+}
+p
+{
+    text-align: center;
+    font-family: 'Trebuchet MS';
+    text-indent: 10px;
+    font-style:  bold;
+
+}
+label
+{
+  
+ display: block;
+   
+}
+
+form
+{
+    text-align: center;
+}
+
+
+.validateButton{
+    text-align: center;
+}
+
+.ConteneurChamp
+{
+    background-color: red;
+}
+
+.ConteneurTitle
+{
+    background-color: blue;
+}
