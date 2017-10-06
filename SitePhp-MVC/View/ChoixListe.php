@@ -24,27 +24,56 @@
 <body>
     
 <div>
-    <div class="header"> Création de votre liste </h1>
+    <div class="header"> Création de votre liste
     </div>
     <p class="creationNouvelleListe"> Pour créer votre liste: </br>
     <form action="CreationListe.php" method="post">
        <div class="input-group">
 			<button type="submit" class="bouton" name="Creation_List">Créer une liste</button>
-		</div>                    
+		</div>     
+                       
         </form>  
     <div class="chooseList">
     <p class="choixNouvelleListe"> Choisir une liste déjà crée: </p>
-    <ul id="registeredList">
-        <li>Liste numéro 1 </li>
-        <li>Liste numéro 2 </li>
-        <li>Liste numéro 3 </li>
-    </ul>
-    </div>    
+        <form action="ChoixListe.php" method="POST">
+        <SELECT>
+        <OPTION class="ListeChoisie">
+        <?php 
+        $reponse = $bdd->query('SELECT nomListe FROM liste WHERE IDListe = 1');
 
+        while ($donnees = $reponse->fetch())
+
+        {
+            echo $donnees['nomListe'] . '<br />';
+        }
+            $reponse->closeCursor();
+        ?>
+        </OPTION>
+        <OPTION>
+        <?php 
+        $reponse = $bdd->query('SELECT nomListe FROM liste where IDListe = 2');
+
+        while ($donnees = $reponse->fetch())
+
+        {
+            echo $donnees['nomListe'] . '<br />';
+        }
+            $reponse->closeCursor();
+        ?>
+        </OPTION>
+
+        </SELECT>
+        
+    </div>    
      <div class="input-group">
-			<button type="submit" class="bouton" name="Creation_List">Séléctionner</button>
-		</div>  
+			<button type="submit" class="bouton" name="choixListe">Séléctionner</button>
+		</div> 
+        </form> 
     </div>
+    <!-- Bouton crée juste pour aller à la page VotreListe.php -->
+    <form action = "VotreListe.php" method="POST">
+    <button type="submit" class="bouton" name="choixListe">Page Votre Liste</button>
+    </form>
 </div>    
 
 

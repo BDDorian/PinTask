@@ -31,7 +31,7 @@
             <p class="newMember" >Vous êtes nouveau ici ? Inscrivez-vous : </p>
        </div>
        <form class= "formRegisterIndex"action="Inscription.php" method="post">
-       <div>
+       <div class="input-group">
 			<button type="submit" class="bouton" name="Register_account">S'inscrire</button>
 		</div>                    
         </form>
@@ -49,7 +49,7 @@
 		    </div>
             <div class="input-group">
 			<button type="submit" class="bouton" name="Login_account">Se connecter</button>
-		</div>
+		    </div>
               
             </form>
         </div>

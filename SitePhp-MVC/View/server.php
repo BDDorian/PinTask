@@ -17,6 +17,8 @@ $dateListe = "";
 $prioriteListe ="";
 $errorsListe=array();
 
+
+
 //Connection à la base de données :
 try
     {
@@ -56,6 +58,7 @@ if (isset($_POST['validation_compte'])) {
 		$_SESSION['success'] = "Vous êtes bien connecté(e)!";
 		header('location: index.php');
 	}
+}
 
 	//Création de la liste :
 	
@@ -74,12 +77,19 @@ if (isset($_POST['validation_compte'])) {
 
 		// Exécution de la requête pour alimenter la BDD.
 		if(count($errorsListe) == 0){
-			$reqListe = $bdd->prepare("INSERT INTO liste (nomListe, dateListe, prioriteListe) VALUES('$nomListe','$dateListe','$prioriteListe')");
+			$reqListe = $bdd->prepare("INSERT INTO liste (nomListe, dateListe, prioriteListe) 
+			VALUES('$nomListe', '$dateListe', '$prioriteListe')");
 			$reqListe-> execute();
+			
 			$_SESSION['success'] = "Enregistrement de votre liste réussi !";
-			header('location: CreationListe.php');
+			header('location: ChoixListe.php');
+			var_dump($reqListe);
+			echo $reqListe;
 		}
+		
+		
+
 	}
 
-}
+
 ?>

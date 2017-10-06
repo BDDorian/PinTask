@@ -18,10 +18,10 @@
         die('Erreur'. $e->getmessage());
     }
     ?>
-<head>
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="StyleInscription.css">
 </head>
+
 <body>
     <div>    
             <title> PinTask : Création de Liste</title>
@@ -39,14 +39,15 @@
 		    </div>
 
             <div class="input-group">
+			<label>Date de création de votre liste:</label>
+			<input id="date" name="dateListe" type="text">
+		    </div>
+
+            <div class="input-group">
 			<label>Priorité de votre liste:</label>
 			<input type="number" value="1" min="1" max="4" name="prioriteListe">
 		    </div>
 
-            <div class="input-group">
-			<label>Date de création de votre liste:</label>
-			<input id="date" name="dateListe" type="text">
-		    </div>
             <div class="input-group">
 			<button type="submit" class="bouton" name="creation_Liste">Créer</button>
 		    </div>           
