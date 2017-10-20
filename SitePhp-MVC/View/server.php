@@ -17,12 +17,17 @@ $dateListe = "";
 $prioriteListe ="";
 $errorsListe=array();
 
+$nomTache="";
+$dateTache="";
+$prioriteTache="";
+$errorsTache=array();
+
 
 
 //Connection à la base de données :
 try
     {
-        $bdd =  new PDO('mysql:host=localhost;dbname=pintaskbdd;charset=utf8', 'root', '');
+        $bdd =  new PDO('mysql:host=localhost;dbname=minutepapillon;charset=utf8', 'root', '');
     }
     catch (Exception $e)
     {
@@ -69,7 +74,7 @@ if (isset($_POST['validation_compte'])) {
 		$prioriteListe= $_POST['prioriteListe'];
 		$dateListe = $_POST['dateListe'];
 
-		// On vérifie ensuite que toutes les cases ont été bien renseignées.$_COOKIE
+		// On vérifie ensuite que toutes les cases ont été bien renseignées.
 
 		if(empty($nomListe)) {array_push($errorsListe, " le champ NOM est requis."); }
 		if(empty($prioriteListe)) {array_push($errorsListe, " le champ PRIORITE est requis."); }
@@ -83,13 +88,42 @@ if (isset($_POST['validation_compte'])) {
 			
 			$_SESSION['success'] = "Enregistrement de votre liste réussi !";
 			header('location: ChoixListe.php');
-			var_dump($reqListe);
-			echo $reqListe;
+			
 		}
 		
 		
 
 	}
 
+
+	//Création de la tâche :
+	
+	if(isset($_POST['creation_Tache'])) {
+
+		// On récupère les éléments rentrés dans les cases du formulaire
+		$nomTache = $_POST['nomTache'];
+		$prioriteTache= $_POST['prioriteTache'];
+		$dateTache = $_POST['dateTache'];
+
+		// On vérifie ensuite que toutes les cases ont été bien renseignées.
+
+		if(empty($nomTache)) {array_push($errorsTache, " le champ NOM est requis."); }
+		if(empty($prioriteTache)) {array_push($errorsTache, " le champ PRIORITE est requis."); }
+		if(empty($dateTache)) {array_push($errorsTache, " le champ DATE est requis."); }
+
+		// Exécution de la requête pour alimenter la BDD.
+		if(count($errorsTache) == 0){
+			$reqTache = $bdd->prepare("INSERT INTO tache (nomTache, dateTache, prioriteTache) 
+			VALUES('$nomTache', '$dateTache', '$prioriteTache')");
+			$reqTache-> execute();
+			
+			$_SESSION['success'] = "Enregistrement de votre tâche réussie !";
+			header('location: VotreTache.php');
+			
+		}
+		
+	}
+
+	
 
 ?>

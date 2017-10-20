@@ -11,7 +11,7 @@
     <?php
     try
     {
-        $bdd =  new PDO('mysql:host=localhost;dbname=pintaskbdd;charset=utf8', 'root', '');
+        $bdd =  new PDO('mysql:host=localhost;dbname=minutepapillon;charset=utf8', 'root', '');
     }
     catch (Exception $e)
     {
@@ -24,10 +24,10 @@
 
 <body>
     <div>    
-            <title> PinTask : Création de Liste</title>
+            <title> Minute Papillon : Création de Liste</title>
               
         <div class="header">Création de votre liste </div>
-       
+       <!-- Champs du formulaire pour la création de la liste -->
         <div class ="ConteneurChampListe">
             <form action="CreationListe.php" method="post">
             <!-- Vérification des erreurs -->
@@ -40,7 +40,7 @@
 
             <div class="input-group">
 			<label>Date de création de votre liste:</label>
-			<input id="date" name="dateListe" type="text">
+			<input id="date" name="dateListe" type="date">
 		    </div>
 
             <div class="input-group">

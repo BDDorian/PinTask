@@ -10,7 +10,7 @@
     <?php
     try
     {
-        $bdd =  new PDO('mysql:host=localhost;dbname=pintaskbdd;charset=utf8', 'root', '');
+        $bdd =  new PDO('mysql:host=localhost;dbname=minutepapillon;charset=utf8', 'root', '');
     }
     catch (Exception $e)
     {
@@ -20,7 +20,7 @@
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="StyleInscription.css">
     
-<title> PinTask : Choix de Liste</title>
+<title> Minute Papillon : Choix de Liste</title>
 <body>
     
 <div>
@@ -33,47 +33,56 @@
 		</div>     
                        
         </form>  
+        <!-- Liste déroulante permettant à l'utilisateur de sélectionner la liste crée-->
     <div class="chooseList">
     <p class="choixNouvelleListe"> Choisir une liste déjà crée: </p>
-        <form action="ChoixListe.php" method="POST">
-        <SELECT>
-        <OPTION class="ListeChoisie">
+        <form action="VotreListe.php" method="POST">
+        <SELECT name="ChoixDeVotreListe">
+        <OPTION class="premierChoix">
         <?php 
-        $reponse = $bdd->query('SELECT nomListe FROM liste WHERE IDListe = 1');
+        $reponse = $bdd->query('SELECT nomListe FROM liste WHERE idListe=1');
 
         while ($donnees = $reponse->fetch())
 
         {
-            echo $donnees['nomListe'] . '<br />';
+            echo $donnees['nomListe'];
+        }
+            $reponse->closeCursor();
+        ?>
+        </OPTION>
+        <OPTION class="deuxiemeChoix">
+            <?php 
+        $reponse = $bdd->query('SELECT nomListe FROM liste WHERE idListe=2');
+
+        while ($donnees = $reponse->fetch())
+
+        {
+            echo $donnees['nomListe'];
         }
             $reponse->closeCursor();
         ?>
         </OPTION>
         <OPTION>
-        <?php 
-        $reponse = $bdd->query('SELECT nomListe FROM liste where IDListe = 2');
+            <?php 
+        $reponse = $bdd->query('SELECT nomListe FROM liste WHERE idListe=3');
 
         while ($donnees = $reponse->fetch())
 
         {
-            echo $donnees['nomListe'] . '<br />';
+            echo $donnees['nomListe'];
         }
             $reponse->closeCursor();
         ?>
         </OPTION>
-
+       
         </SELECT>
-        
-    </div>    
-     <div class="input-group">
+        <div class="input-group">
 			<button type="submit" class="bouton" name="choixListe">Séléctionner</button>
-		</div> 
-        </form> 
-    </div>
-    <!-- Bouton crée juste pour aller à la page VotreListe.php -->
-    <form action = "VotreListe.php" method="POST">
-    <button type="submit" class="bouton" name="choixListe">Page Votre Liste</button>
-    </form>
+		</div>
+         </form>  
+    </div>    
+      
+   
 </div>    
 
 

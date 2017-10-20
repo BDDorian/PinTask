@@ -11,7 +11,7 @@
     <?php
     try
     {
-        $bdd =  new PDO('mysql:host=localhost;dbname=pintaskbdd;charset=utf8', 'root', '');
+        $bdd =  new PDO('mysql:host=localhost;dbname=minutepapillon;charset=utf8', 'root', '');
     }
     catch (Exception $e)
     {
@@ -23,7 +23,7 @@
 	<div class="header">
 		<h2>Création de votre compte</h2>
 	</div>
-	
+	<!-- Formulaire composé de champs afin de créer un compte utilisateur -->
 	<form method="post" action="Inscription.php">
         <!-- On vérifie si il n'y a pas d'erreurs-->
         <?php include('errors.php'); ?>

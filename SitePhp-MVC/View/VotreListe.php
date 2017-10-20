@@ -1,30 +1,48 @@
 <html>
 <head>
-    <!-- J'ai crée plein de fichier css, un pour chaque page. Je sais que ce n'est pas la bonne méthode.
-    Je vais regrouper tout en un, mais c'était juste histoire de remplir et de personnaliser les pages.
-    -->
      <!-- Se connecter avec ma base sur phpMyAdmin 
     J'applique un try catch pour capturer l'erreur afin de la traiter ultèrieurement. 
     Et surtout ne pas afficher des informations comprométantes à l'utilisateur.-->
-    <?php
+     <?php
     try
     {
-        $bdd =  new PDO('mysql:host=localhost;dbname=pintaskbdd;charset=utf8', 'root', '');
+        $bdd =  new PDO('mysql:host=localhost;dbname=minutepapillon;charset=utf8', 'root', '');
     }
     catch (Exception $e)
     {
         die('Erreur'. $e->getmessage());
     }
     ?>
-    
+
+   
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="StyleInscription.css">
 </head>   
-<title> PinTask : Organiser votre travail.</title>
+<title> Minute Papillon : Organiser votre travail.</title>
 <body>
     <!-- Division des principaux éléments en conteneur. Cela tendra à disparaître mais c'était pour m'habituer à bien utiliser flexbox. -->
     <div class="listeGlobale">
+         <label> Votre liste :
+                 <?php
+        //Test pour récupérer le choix de la liste et afficher ainsi les éléments du choix avec une requête SQL.
+        if(isset($_POST['choixListe']))
+        {
+        $reponse = $bdd->query('SELECT nomListe FROM liste');
+         while ($donnees = $reponse->fetch())
+
+            {
+            
+                echo($donnees['nomListe']);
+            }
+                $reponse->closeCursor();
+        
+        }
+                 ?>
+                    
+                 </label>
         <div class ="header-VotreListe">
+            <!-- Affichage du nom de la liste sélectionnée -->
+           
             <h2> To do !</h2>
         </div>
         <div class="input-group-VotreListe">

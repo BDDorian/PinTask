@@ -9,7 +9,7 @@
     <?php
     try
     {
-        $bdd =  new PDO('mysql:host=localhost;dbname=pintaskbdd;charset=utf8', 'root', '');
+        $bdd =  new PDO('mysql:host=localhost;dbname=minutepapillon;charset=utf8', 'root', '');
     }
     catch (Exception $e)
     {
@@ -20,12 +20,12 @@
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="StyleInscription.css">
 </head>   
-<title> PinTask : Organiser votre travail.</title>
+<title> Minute Papillon : Organiser votre travail.</title>
 <body>
     <!-- Division des principaux éléments en conteneur. Cela tendra à disparaître mais c'était pour m'habituer à bien utiliser flexbox. -->
     <div>
         <div class ="header">
-            <h2> Bienvenue sur Pintask !</h2>
+            <h2> Bienvenue sur Minute Papillon ! </h2>
         </div>
         <div class ="Conteneur2">
             <p class="newMember" >Vous êtes nouveau ici ? Inscrivez-vous : </p>
@@ -45,7 +45,7 @@
 		    </div>
             <div class="input-group">
 			<label>Mot de passe:</label>
-			<input type="text" name="pseudo">
+			<input type="password" name="motDePasse">
 		    </div>
             <div class="input-group">
 			<button type="submit" class="bouton" name="Login_account">Se connecter</button>
@@ -61,8 +61,8 @@
         
          if(isset($_POST['Envoyer'])){
             //récupération des valeurs saisies par l'utilisateur
-            $registerPseudo= $_POST['registerPseudo'];
-            $registerPwd = $_POST['registerPwd'];
+            $registerPseudo= $_POST['pseudo'];
+            $registerPwd = $_POST['motDePasse'];
 
             // Vérification que tous les champs sont remplis.
              if(empty($registerPseudo)){
@@ -96,7 +96,7 @@
         }
         else
         {
-            echo "FUARRRRRRRRRRRRRRRRRRRRkkkkkkkkkkkkkkk";
+            echo "Bon mot de passe";
         }   
         
 
