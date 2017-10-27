@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+
 
 // Déclaration des variables.
 
@@ -22,7 +22,11 @@ $dateTache="";
 $prioriteTache="";
 $errorsTache=array();
 
+$pseudoEnregistre ="";
+$motDePasseEnregistre ="";
 
+$prioriteTacheChoisie="";
+$nomTacheChoisie="";
 
 //Connection à la base de données :
 try
@@ -33,6 +37,45 @@ try
     {
         die('Erreur'. $e->getmessage());
     }
+// Vérification du login et du mot de passe :
+  
+        if(isset($_POST['Login_account'])){
+            //récupération des valeurs saisies par l'utilisateur
+            $pseudo= $_POST['pseudo'];
+            $motDePasse = $_POST['motDePasse'];
+			
+               
+       // Envoie de la requête pour comparer si le pseudo et le mot de passe entrés existent dans la BDD.
+        $req = $bdd->prepare("SELECT idUtilisateur from utilisateur WHERE pseudoUtilisateur = :pseudo AND motDePasseUtilisateur = :motDePasse");
+       
+        $req ->execute(array(
+
+        'pseudo' => $pseudo,
+
+		'motDePasse' => $motDePasse));  
+		
+        $resultat = $req->fetch();
+		
+		if (!$resultat)	      
+        {
+        echo "Le login et mot de passe indiqués n'existent pas.";
+		header('location: error404.php');
+        }
+        else
+        {
+			session_start();
+			$_SESSION['idUtilisateur'] = $resultat['idUtilisateur'];
+			$_SESSION['pseudo'] = $pseudo;
+            echo "Vous êtes connecté";
+        }   
+                   
+       $req->closeCursor(); // Termine le traitement de la requête
+		}
+		     
+        
+if(isset($_POST['retourAccueil'])) {
+	header('location: index.php');
+}     
     
 // Inscription de l'utilisateur:
 if (isset($_POST['validation_compte'])) {
@@ -59,8 +102,8 @@ if (isset($_POST['validation_compte'])) {
         VALUES('$nom', '$prenom', '$pseudo', '$mail', '$motDePasse')");
 		$req -> execute();
 
-		$_SESSION['pseudo'] = $pseudo;
-		$_SESSION['success'] = "Vous êtes bien connecté(e)!";
+		//$_SESSION['pseudo'] = $pseudo;
+		//$_SESSION['success'] = "Vous êtes bien connecté(e)!";
 		header('location: index.php');
 	}
 }
@@ -86,7 +129,7 @@ if (isset($_POST['validation_compte'])) {
 			VALUES('$nomListe', '$dateListe', '$prioriteListe')");
 			$reqListe-> execute();
 			
-			$_SESSION['success'] = "Enregistrement de votre liste réussi !";
+			//$_SESSION['success'] = "Enregistrement de votre liste réussi !";
 			header('location: ChoixListe.php');
 			
 		}
@@ -117,13 +160,10 @@ if (isset($_POST['validation_compte'])) {
 			VALUES('$nomTache', '$dateTache', '$prioriteTache')");
 			$reqTache-> execute();
 			
-			$_SESSION['success'] = "Enregistrement de votre tâche réussie !";
-			header('location: VotreTache.php');
+			//$_SESSION['success'] = "Enregistrement de votre tâche réussie !";
+			header('location: VotreListe.php');
 			
-		}
-		
+		}		
 	}
-
-	
 
 ?>

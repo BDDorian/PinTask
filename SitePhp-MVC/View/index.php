@@ -1,8 +1,7 @@
 <html>
 <head>
-    <!-- J'ai crée plein de fichier css, un pour chaque page. Je sais que ce n'est pas la bonne méthode.
-    Je vais regrouper tout en un, mais c'était juste histoire de remplir et de personnaliser les pages.
-    -->
+   <!-- Inclusion du fichier server.php afin de générer les requêtes pour la page index -->
+   <?php include('server.php') ?>
      <!-- Se connecter avec ma base sur phpMyAdmin 
     J'applique un try catch pour capturer l'erreur afin de la traiter ultèrieurement. 
     Et surtout ne pas afficher des informations comprométantes à l'utilisateur.-->
@@ -54,58 +53,7 @@
             </form>
         </div>
 
-        <!-- vérificarion du login et du mot de passe -->
-        <?php
-
-        $errors = array();
         
-         if(isset($_POST['Envoyer'])){
-            //récupération des valeurs saisies par l'utilisateur
-            $registerPseudo= $_POST['pseudo'];
-            $registerPwd = $_POST['motDePasse'];
-
-            // Vérification que tous les champs sont remplis.
-             if(empty($registerPseudo)){
-                array_push($errors, "Votre pseudo est requis");
-            }
-             if(empty($registerPwd)){
-                array_push($errors, "Votre mot de passe est requis");
-            }
-
-            // Condition vérifiant qu'il n'y a aucune erreur.
-
-            //if(count($errors)== 0){
-            //Encryptage du mot de passe en md5 avant de le vérifier dans la BDD. 
-
-            //$registerPwd = md5($registerPwd);   
-            
-       // Envoie de la requête pour comparer si le pseudo et le mot de passe entrés existent dans la BDD.
-        $req = $bdd->prepare('SELECT * from utilisateur WHERE pseudoUtilisateur = :registerPseudo AND motDePasseUtilisateur = :registerPwd');
-       
-        $req ->execute(array(
-
-            'registerPseudo' => $registerPseudo,
-
-            'registerPwd' => $registerPwd));  
-
-        $resultat = $req->fetch();
-
-        if(!$resultat)
-        {
-        echo "Mauvais mot de passe";
-        }
-        else
-        {
-            echo "Bon mot de passe";
-        }   
-        
-
-         }    
-        
-       // $req->closeCursor(); // Termine le traitement de la requête
-        
-        
-     ?>
    </div>
 </body>
 </html>

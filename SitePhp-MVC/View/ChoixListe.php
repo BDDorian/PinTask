@@ -1,9 +1,21 @@
 <html>
 
 <head>
-    <!-- J'ai crée plein de fichier css, un pour chaque page. Je sais que ce n'est pas la bonne méthode.
-    Je vais regrouper tout en un, mais c'était juste histoire de remplir et de personnaliser les pages.
-    -->
+    <?php include('server.php');
+    ?>
+    <?php include('deconnexion.php');
+    ?>
+    <!-- Vérifie si on a bien enregistré la session -->
+    <?php
+    if (isset($_SESSION['idUtilisateur']) AND isset($_SESSION['pseudo']))
+    {
+        echo 'en tant que '. $_SESSION['pseudo']. '.';
+    }
+    
+    ?>
+    <button type="submit" class="bouton" name="deconnexionBouton">Se déconnecter</button>
+    <button type="submit" class="bouton" name="accueilBouton">Accueil</button>
+    
      <!-- Se connecter avec ma base sur phpMyAdmin 
     J'applique un try catch pour capturer l'erreur afin de la traiter ultèrieurement. 
     Et surtout ne pas afficher des informations comprométantes à l'utilisateur.-->
