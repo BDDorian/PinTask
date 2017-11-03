@@ -1,4 +1,16 @@
+<?php
 
+if(!isset($_SESSION)){
+    session_start();
+}
+?>
+  <?php
+    if (isset($_SESSION['idUtilisateur']) AND isset($_SESSION['pseudo']))
+    {
+        echo 'en tant que '. $_SESSION['pseudo']. '.';
+    }
+    
+    ?>
   <!-- On inclut la page server.php afin d'envoyer tout à la base de données' -->
 <?php include('server.php') ?>
 <!DOCTYPE html>
@@ -28,7 +40,9 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
-
+<nav>
+<input type="submit" name="deconnexionBouton" class="bouton" value="Déconnexion">
+</nav>
 <body>
     <div>    
             <title> Minute Papillon : Création de Liste</title>

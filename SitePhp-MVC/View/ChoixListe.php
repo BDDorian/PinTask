@@ -1,5 +1,9 @@
+<?php
+if(!isset($_SESSION)){
+    session_start();
+}
+?>
 <html>
-
 <head>
     <?php include('server.php');
     ?>
@@ -13,7 +17,6 @@
     }
     
     ?>
-    <button type="submit" class="bouton" name="deconnexionBouton">Se déconnecter</button>
     <button type="submit" class="bouton" name="accueilBouton">Accueil</button>
     
      <!-- Se connecter avec ma base sur phpMyAdmin 
@@ -31,10 +34,13 @@
     ?>
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="StyleInscription.css">
-    
+   
 <title> Minute Papillon : Choix de Liste</title>
-<body>
-    
+</head>
+<form method="post" action="index.php">
+<input type="submit" name="decoBouton" class="bouton" value="Déconnexion">
+</form>
+<body>    
 <div>
     <div class="header"> Création de votre liste
     </div>
@@ -96,8 +102,5 @@
       
    
 </div>    
-
-
 </body>
-</head>
 </html>

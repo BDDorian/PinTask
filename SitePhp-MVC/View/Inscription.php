@@ -1,3 +1,19 @@
+<!-- Vérification de la session existante -->
+<?php
+
+if(!isset($_SESSION)){
+    session_start();
+}
+
+?>
+<!-- Affichage du pseudo de la session conntectée -->
+  <?php
+    if (isset($_SESSION['idUtilisateur']) AND isset($_SESSION['pseudo']))
+    {
+        echo 'en tant que '. $_SESSION['pseudo']. '.';
+    }
+    
+    ?>
 <!-- On inclut la page server.php afin d'envoyer tout à la base de données' -->
 <?php include('server.php') ?>
 <!DOCTYPE html>
@@ -19,6 +35,9 @@
     }
     ?>
 </head>
+<nav>
+<input type="submit" name="deconnexionBouton" class="bouton" value="Déconnexion">
+</nav>
 <body>
 	<div class="header">
 		<h2>Création de votre compte</h2>
@@ -52,73 +71,6 @@
 			<button type="submit" class="bouton" name="validation_compte">S'inscrire</button>
 		</div>
 		
-	</form>
-
-    
-           <!-- $errors = array();
-
-            if(isset($_POST['Envoyer'])){
-            //récupération des valeurs saisies par l'utilisateur
-            $nom= $_POST['nom'];
-            $prenom = $_POST['prenom'];
-            $pseudo = $_POST['pseudo'];
-            $mail = $_POST['mail'];
-            $motDePasse = $_POST['motDePasse'];
-            
-
-            // Vérification de chaque champ si il est bien rempli.
-            
-            /*if(empty($nom)){
-                array_push($errors, "Votre nom est requis");
-            }
-             if(empty($prenom)){
-                array_push($errors, "Votre prénom est requis");
-            }
-             if(empty($pseudo)){
-                array_push($errors, "Votre pseudo est requis");
-            }
-             if(empty($mail)){
-                array_push($errors, "Votre e-mail est requis");
-            }
-             if(empty($motDePasse)){
-                array_push($errors, "Votre mot de passe est requis");
-            }
-            */
-            // Condition pour vérifier qu'il n'y a pas d'erreurs afin d'exécuter la requête.
-            //if(count($errors) == 0) {
-
-            // Encryptage via le md5 du mot de passe. Afin qu'il soit crypté pour être stocké tel quel dans la BDD.
-            //$motDePasse = md5($motDePasse);
-
-            // Requête SQL pour insérer le compte dans la table utilisateur.
-            /*$req = $bdd->prepare("INSERT INTO utilisateur(nomUtilisateur, prenomUtilisateur, pseudoUtilisateur, mailUtilisateur, motDePasseUtilisateur)
-            VALUES(:nom, :prenom ,:pseudo, :mail, :motDePasse) ");
-             
-            $req->execute(array(
-
-            'nom' => $nom,
-
-            'prenom' => $prenom,
-
-            'pseudo' => $pseudo,
-
-            'mail' => $mail,
-
-            'motDePasse' => $motDePasse
-
-             ));
-            // Notification d'erreur.
-             $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-
-             // fermeture de la connection à la bdd
-            if ($bdd) {
-            $bdd = NULL;
-            }
-             
-            }
-            
-            ?>
-            -->
-            
+	</form>          
 </body>
 </html>

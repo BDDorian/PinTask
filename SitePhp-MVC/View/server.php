@@ -1,7 +1,11 @@
+<!-- Vérification de l'existence de la session, elle est automatiquement générée si elle n'existe pas -->
 <?php
+if(!isset($_SESSION)){
+    session_start();
+}
+?>
 
-
-
+<?php
 // Déclaration des variables.
 
 $nom = "";
@@ -43,15 +47,12 @@ try
             //récupération des valeurs saisies par l'utilisateur
             $pseudo= $_POST['pseudo'];
             $motDePasse = $_POST['motDePasse'];
-			
-               
+			              
        // Envoie de la requête pour comparer si le pseudo et le mot de passe entrés existent dans la BDD.
         $req = $bdd->prepare("SELECT idUtilisateur from utilisateur WHERE pseudoUtilisateur = :pseudo AND motDePasseUtilisateur = :motDePasse");
        
         $req ->execute(array(
-
         'pseudo' => $pseudo,
-
 		'motDePasse' => $motDePasse));  
 		
         $resultat = $req->fetch();
@@ -67,16 +68,13 @@ try
 			$_SESSION['idUtilisateur'] = $resultat['idUtilisateur'];
 			$_SESSION['pseudo'] = $pseudo;
             echo "Vous êtes connecté";
-        }   
-                   
+        }                  
        $req->closeCursor(); // Termine le traitement de la requête
 		}
-		     
-        
+		            
 if(isset($_POST['retourAccueil'])) {
 	header('location: index.php');
-}     
-    
+}         
 // Inscription de l'utilisateur:
 if (isset($_POST['validation_compte'])) {
 
@@ -94,7 +92,6 @@ if (isset($_POST['validation_compte'])) {
     if (empty($mail)) { array_push($errors, "Le champ E-MAIL est requis."); }
     if (empty($motDePasse)) { array_push($errors, "Le champ MOT DE PASSE est requis."); }
 
-
 	// On exécute la requête pour alimenter la BDD.
 	if (count($errors) == 0) {
 		$password = md5($motDePasse);//encrypt the password before saving in the database
@@ -107,9 +104,7 @@ if (isset($_POST['validation_compte'])) {
 		header('location: index.php');
 	}
 }
-
-	//Création de la liste :
-	
+	//Création de la liste :	
 	if(isset($_POST['creation_Liste'])) {
 
 		// On récupère les éléments rentrés dans les cases du formulaire
@@ -130,15 +125,9 @@ if (isset($_POST['validation_compte'])) {
 			$reqListe-> execute();
 			
 			//$_SESSION['success'] = "Enregistrement de votre liste réussi !";
-			header('location: ChoixListe.php');
-			
+			header('location: ChoixListe.php');	
 		}
-		
-		
-
 	}
-
-
 	//Création de la tâche :
 	
 	if(isset($_POST['creation_Tache'])) {
@@ -161,9 +150,7 @@ if (isset($_POST['validation_compte'])) {
 			$reqTache-> execute();
 			
 			//$_SESSION['success'] = "Enregistrement de votre tâche réussie !";
-			header('location: VotreListe.php');
-			
+			header('location: VotreListe.php');	
 		}		
 	}
-
 ?>

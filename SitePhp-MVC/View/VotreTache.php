@@ -1,4 +1,9 @@
-
+<!-- Vérification de la session en cours. Si elle n'existe pas, elle est générée. -->
+<?php
+if(!isset($_SESSION)){
+    session_start();
+}
+?>
   <!-- On inclut la page server.php afin d'envoyer tout à la base de données' -->
 <?php include('server.php') ?>
 
@@ -21,7 +26,17 @@
     ?>
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="StyleInscription.css">
+    <!--Eléments crées pour insérer JQuery DatePicker -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
+<nav>
+<input type="submit" name="deconnexionBouton" class="bouton">
+</nav>
 
 <body>
     <div>    
@@ -39,10 +54,11 @@
 			<input type="text" name="nomTache">
 		    </div>
 
+             <!-- Implémentation du DatePicker, à vérifier si la BDD se met à jour avec la date choisie -->
             <div class="input-group">
-			<label>Date de création de votre tâche:</label>
-			<input id="date" name="dateTache" type="text">
-		    </div>
+            <label>Date de création de votre tâche:</label>
+            <input id="datepicker"  name="dateTache" type="date">
+            </div>
 
             <div class="input-group">
 			<label>Priorité de votre tâche:</label>
@@ -58,4 +74,7 @@
 </body>
 
 </html>
- <!-- ** ON MET LE JAVASCRIPT TOUT EN BAS, QUESTION DE CLARTE ** -->
+ <!-- Inclusion du datepicker -->
+<script>
+  var date = $('#datepicker').datepicker({ dateFormat: 'yy-mm-dd' }).val();
+</script>
