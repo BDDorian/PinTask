@@ -1,15 +1,11 @@
-
 <!-- A FAIRE : INDENTER CORRECTEMENT TOUT LE CODE -->
 <!--Boucle permettant la vérifaition de l'existence d'une session. Si la session n'est pas crée, elle sera alors générée lors de la validation du pseudo' -->
-<?php
-if(!isset($_SESSION)){
-    session_start();
-}
-?>
+
+
   <?php
     if (isset($_SESSION['idUtilisateur']) AND isset($_SESSION['pseudo']))
     {
-        echo 'en tant que '. $_SESSION['pseudo']. '.';
+        echo 'Session en cours: '. $_SESSION['pseudo']. '.';
     }
     
     ?>
@@ -17,14 +13,14 @@ if(!isset($_SESSION)){
 <head>
    <!-- Inclusion du fichier server.php afin de générer les requêtes pour la page index -->
    <?php include('server.php') ?>
-   <?php include('deconnexion.php') ?>
+   
      <!-- Se connecter avec ma base sur phpMyAdmin 
     J'applique un try catch pour capturer l'erreur afin de la traiter ultèrieurement. 
     Et surtout ne pas afficher des informations comprométantes à l'utilisateur.-->
     <?php
     try
     {
-        $bdd =  new PDO('mysql:host=localhost;dbname=minutepapillon;charset=utf8', 'root', '');
+        $bdd =  new PDO('mysql:host=localhost;dbname=minutepapillondb;charset=utf8', 'root', '');
     }
     catch (Exception $e)
     {
@@ -33,17 +29,16 @@ if(!isset($_SESSION)){
     ?>
     
     <meta charset="utf-8"/>
+    <!-- style appliqué pour les grand écrans -->
     <link rel="stylesheet" href="StyleInscription.css">
 </head> 
-<form method="post" action="index.php">
-<input type="submit" name="decoBouton" class="bouton" value="Déconnexion">
-</form>  
+ 
 <title> Minute Papillon : Organiser votre travail.</title>
 <body>
     <!-- Division des principaux éléments en conteneur. Cela tendra à disparaître mais c'était pour m'habituer à bien utiliser flexbox. -->
     <div>
         <div class ="header">
-            <h2> Bienvenue sur Minute Papillon ! </h2>
+            <h2> Bienvenue Minute Papillon ! </h2>
         </div>
         <div class ="Conteneur2">
             <p class="newMember" >Vous êtes nouveau ici ? Inscrivez-vous : </p>

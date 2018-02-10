@@ -1,23 +1,29 @@
 <!-- Vérification de la session existante -->
-<?php
-
+<?php/*
 if(!isset($_SESSION)){
     session_start();
 }
-
+*/
 ?>
-<!-- Affichage du pseudo de la session conntectée -->
+<!-- Affichage du pseudo de la session conntectée OPTIONNEL-->
   <?php
     if (isset($_SESSION['idUtilisateur']) AND isset($_SESSION['pseudo']))
     {
-        echo 'en tant que '. $_SESSION['pseudo']. '.';
+        echo 'Session en cours: '. $_SESSION['pseudo']. '.';
     }
     
     ?>
 <!-- On inclut la page server.php afin d'envoyer tout à la base de données' -->
-<?php include('server.php') ?>
+<?php include('server.php'); ?>
 <!DOCTYPE html>
 <html>
+<!-- Creating the navbar -->
+<!--
+<div class="firstNav">
+  <a class="active" href="#home">Accueil</a>
+  <a class="active" href="#deconnexion">Deconnexion</a>
+</div>
+-->
 <head>
 	<title>Pintask: Création du compte</title>
 	<link rel="stylesheet" type="text/css" href="StyleInscription.css">
@@ -27,7 +33,7 @@ if(!isset($_SESSION)){
     <?php
     try
     {
-        $bdd =  new PDO('mysql:host=localhost;dbname=minutepapillon;charset=utf8', 'root', '');
+        $bdd =  new PDO('mysql:host=localhost;dbname=minutepapillondb;charset=utf8', 'root', '');
     }
     catch (Exception $e)
     {
@@ -35,9 +41,7 @@ if(!isset($_SESSION)){
     }
     ?>
 </head>
-<nav>
-<input type="submit" name="deconnexionBouton" class="bouton" value="Déconnexion">
-</nav>
+
 <body>
 	<div class="header">
 		<h2>Création de votre compte</h2>

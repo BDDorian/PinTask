@@ -1,15 +1,16 @@
 <?php
-
 if(!isset($_SESSION)){
     session_start();
 }
 ?>
+
   <?php
-    if (isset($_SESSION['idUtilisateur']) AND isset($_SESSION['pseudo']))
+    if (isset($_SESSION['id_utilisateur']) AND isset($_SESSION['pseudo']))
     {
-        echo 'en tant que '. $_SESSION['pseudo']. '.';
+        echo 'Nom de la session :'.$_SESSION['pseudo'];
+        echo 'Id de la session :' .$_SESSION['id_utilisateur'];
+       
     }
-    
     ?>
   <!-- On inclut la page server.php afin d'envoyer tout à la base de données' -->
 <?php include('server.php') ?>
@@ -41,7 +42,12 @@ if(!isset($_SESSION)){
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <nav>
-<input type="submit" name="deconnexionBouton" class="bouton" value="Déconnexion">
+<form action ="index.php" method="post">
+<input type="submit" name="indexBouton" class="bouton" value="Accueil">
+</form>
+<form action="deconnexion.php" method="post">
+<input type="submit" name="decoButton" class="bouton" value="Deconnexion">
+</form>
 </nav>
 <body>
     <div>    
@@ -74,7 +80,8 @@ if(!isset($_SESSION)){
 			<button type="submit" class="bouton" name="creation_Liste">Créer</button>
 		    </div>           
             </form>
-        </div>   
+        </div> 
+  
     <div>      
 </body>
 

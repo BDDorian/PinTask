@@ -1,31 +1,34 @@
-<?php
-if(!isset($_SESSION)){
-    session_start();
-}
-?>
+
 <html>
-<head>
+<head> 
     <?php include('server.php');
     ?>
-    <?php include('deconnexion.php');
-    ?>
-    <!-- Vérifie si on a bien enregistré la session -->
+
+    
     <?php
-    if (isset($_SESSION['idUtilisateur']) AND isset($_SESSION['pseudo']))
-    {
-        echo 'en tant que '. $_SESSION['pseudo']. '.';
-    }
-    
+        //if(!isset($_SESSION)){
+        session_start();
+        //}
+        
     ?>
-    <button type="submit" class="bouton" name="accueilBouton">Accueil</button>
+
+  <?php
+    if (isset($_SESSION['id_utilisateur']) AND isset($_SESSION['pseudo']))
+    {
+        echo 'Nom de la session :'.$_SESSION['pseudo'];
+        echo 'Id de la session :' .$_SESSION['id_utilisateur'];
+       
+    }
+    $idUtilisateurFK = $_SESSION['id_utilisateur'];
     
+   ?>
      <!-- Se connecter avec ma base sur phpMyAdmin 
     J'applique un try catch pour capturer l'erreur afin de la traiter ultèrieurement. 
     Et surtout ne pas afficher des informations comprométantes à l'utilisateur.-->
     <?php
     try
     {
-        $bdd =  new PDO('mysql:host=localhost;dbname=minutepapillon;charset=utf8', 'root', '');
+        $bdd =  new PDO('mysql:host=localhost;dbname=minutepapillondb;charset=utf8', 'root', '');
     }
     catch (Exception $e)
     {
@@ -37,8 +40,11 @@ if(!isset($_SESSION)){
    
 <title> Minute Papillon : Choix de Liste</title>
 </head>
-<form method="post" action="index.php">
-<input type="submit" name="decoBouton" class="bouton" value="Déconnexion">
+<form action ="index.php" method="post">
+<input type="submit" name="indexBouton" class="bouton" value="Accueil">
+</form>
+<form action="deconnexion.php" method="post">
+<input type="submit" name="decoButton" class="bouton" value="Deconnexion">
 </form>
 <body>    
 <div>
@@ -56,44 +62,49 @@ if(!isset($_SESSION)){
     <p class="choixNouvelleListe"> Choisir une liste déjà crée: </p>
         <form action="VotreListe.php" method="POST">
         <SELECT name="ChoixDeVotreListe">
-        <OPTION class="premierChoix">
-        <?php 
-        $reponse = $bdd->query('SELECT nomListe FROM liste WHERE idListe=1');
-
-        while ($donnees = $reponse->fetch())
-
+        
+        <!--<OPTION class="premierChoix">-->
+        <?php
+        
+        // On recupère bien les listes mais pas celles liées à l'id
+        //Solution actuelle 09/02 : On essaye de récupérer l'idée grâce à :
+        //Cela marche, il manque simplement de les afficher bien comme il faut dans la liste.
+        $idUtilisateurFK = $_SESSION['id_utilisateur'];
+        $reponse = $bdd->query("SELECT nom_liste FROM liste WHERE id_utilisateur = '$idUtilisateurFK'");
+        //$reponse ->execute();
+        //echo $reponse;
+        while($data = $reponse->fetch())
         {
-            echo $donnees['nomListe'];
+            ?>
+            <option><?php echo $data['nom_liste']; ?>"</option>
+            
+        <?php
         }
-            $reponse->closeCursor();
         ?>
-        </OPTION>
-        <OPTION class="deuxiemeChoix">
+        </SELECT>
             <?php 
-        $reponse = $bdd->query('SELECT nomListe FROM liste WHERE idListe=2');
-
+        /*$reponse = $bdd->query('SELECT nom_liste FROM liste WHERE id_utilisateur=2');
         while ($donnees = $reponse->fetch())
-
         {
-            echo $donnees['nomListe'];
+            echo $donnees['nom_liste'];
         }
             $reponse->closeCursor();
         ?>
         </OPTION>
         <OPTION>
             <?php 
-        $reponse = $bdd->query('SELECT nomListe FROM liste WHERE idListe=3');
-
+        $reponse = $bdd->query('SELECT nom_liste FROM liste WHERE id_liste=3');
         while ($donnees = $reponse->fetch())
-
         {
-            echo $donnees['nomListe'];
+            echo $donnees['nom_liste'];
         }
             $reponse->closeCursor();
         ?>
         </OPTION>
        
         </SELECT>
+        */
+        ?>
         <div class="input-group">
 			<button type="submit" class="bouton" name="choixListe">Séléctionner</button>
 		</div>

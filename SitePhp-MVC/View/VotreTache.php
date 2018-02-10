@@ -1,12 +1,15 @@
-<!-- Vérification de la session en cours. Si elle n'existe pas, elle est générée. -->
-<?php
-if(!isset($_SESSION)){
-    session_start();
-}
-?>
-  <!-- On inclut la page server.php afin d'envoyer tout à la base de données' -->
+<!-- On inclut la page server.php afin d'envoyer tout à la base de données' -->
+<?php  session_start(); ?>
 <?php include('server.php') ?>
-
+<?php
+    if (isset($_SESSION['id_utilisateur']) AND isset($_SESSION['pseudo']))
+    {
+        echo 'Nom de la session :'.$_SESSION['pseudo'];
+        echo 'Id de la session :' .$_SESSION['id_utilisateur'];
+        echo 'Id de la liste :' .$_SESSION['id_liste'];
+       
+    }
+    ?>
 <!DOCTYPE html>
 <html>
 
@@ -17,7 +20,7 @@ if(!isset($_SESSION)){
     <?php
     try
     {
-        $bdd =  new PDO('mysql:host=localhost;dbname=minutepapillon;charset=utf8', 'root', '');
+        $bdd =  new PDO('mysql:host=localhost;dbname=minutepapillondb;charset=utf8', 'root', '');
     }
     catch (Exception $e)
     {
@@ -34,18 +37,15 @@ if(!isset($_SESSION)){
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
-<nav>
-<input type="submit" name="deconnexionBouton" class="bouton">
-</nav>
 
 <body>
     <div>    
-            <title> Minute Papillon : Création de Tâche</title>
-        
+            <title> PinTask : Création de Tâche</title>
+              
         <div class="header">Création de votre tâche </div>
-       
+        <!-- Formulaire crée pour insérer la tâche voulue par l'utilisateur -->
         <div class ="ConteneurChampListe">
-            <form action="VotreListe.php" method="post">
+            <form action="VotreTache.php" method="post">
             <!-- Vérification des erreurs -->
             <?php include('errors.php'); ?>
 
@@ -54,11 +54,11 @@ if(!isset($_SESSION)){
 			<input type="text" name="nomTache">
 		    </div>
 
-             <!-- Implémentation du DatePicker, à vérifier si la BDD se met à jour avec la date choisie -->
             <div class="input-group">
-            <label>Date de création de votre tâche:</label>
-            <input id="datepicker"  name="dateTache" type="date">
-            </div>
+			<label>Date de création de votre tâche:</label>
+			<input id="datepicker" name="dateTache" type="date">
+		    </div>
+            
 
             <div class="input-group">
 			<label>Priorité de votre tâche:</label>
@@ -74,7 +74,7 @@ if(!isset($_SESSION)){
 </body>
 
 </html>
- <!-- Inclusion du datepicker -->
-<script>
+ <!-- ** ON MET LE JAVASCRIPT TOUT EN BAS, QUESTION DE CLARTE ** -->
+ <script>
   var date = $('#datepicker').datepicker({ dateFormat: 'yy-mm-dd' }).val();
-</script>
+  </script>
