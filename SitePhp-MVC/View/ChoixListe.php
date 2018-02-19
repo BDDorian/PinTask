@@ -1,117 +1,87 @@
-
+<!-- Page ChoixListe.php Création d'une liste, et sélection d'une liste déjà crée. -->
+<!-- Inclusion du fichier server.php afin d'inclure les requêtes SQL à la page dédiée. -->
+<?php include('server.php');
+?>
 <html>
-<head> 
-    <?php include('server.php');
-    ?>
-
-    
+<head>
+<!-- Vérification de la session en cours. Si elle n'existe pas, elle est automatiquement générée. -->
+<?php
+if(!$_SESSION['id_utilisateur']){
+    session_start();
+}
+?>
+<!-- Utilisation de la variable globale SESSION afin d'afficher la session en cours. -->
+<?php
+if (isset($_SESSION['id_utilisateur']) AND isset($_SESSION['pseudo']))
+{
+    echo 'Nom de la session : '.$_SESSION['pseudo'];?>
+    <br>
     <?php
-        //if(!isset($_SESSION)){
-        session_start();
-        //}
-        
-    ?>
+    echo 'Id de la session : ' .$_SESSION['id_utilisateur'];     
+}
+/* Récupération de la clé étrangère id_utilisateur afin de pouvoir l'insérer dans la table liste. */
+$idUtilisateurFK = $_SESSION['id_utilisateur'];
+?>    
+<!-- Connexion à la base de données -->
+<!-- Application d'un try catch pour capturer l'erreur afin de la traiter ultèrieurement. 
+Et vérification de la connexion à la base de données. -->
+<?php
+try
+{
+    $bdd =  new PDO('mysql:host=localhost;dbname=minutepapillondb;charset=utf8', 'root', '');
+}
+catch (Exception $e)
+{
+    die('Erreur'. $e->getmessage());
+}
+?>
+<meta charset="utf-8"/>
+<link rel="stylesheet" href="StyleInscription.css">
 
-  <?php
-    if (isset($_SESSION['id_utilisateur']) AND isset($_SESSION['pseudo']))
-    {
-        echo 'Nom de la session :'.$_SESSION['pseudo'];
-        echo 'Id de la session :' .$_SESSION['id_utilisateur'];
-       
-    }
-    $idUtilisateurFK = $_SESSION['id_utilisateur'];
-    
-   ?>
-     <!-- Se connecter avec ma base sur phpMyAdmin 
-    J'applique un try catch pour capturer l'erreur afin de la traiter ultèrieurement. 
-    Et surtout ne pas afficher des informations comprométantes à l'utilisateur.-->
-    <?php
-    try
-    {
-        $bdd =  new PDO('mysql:host=localhost;dbname=minutepapillondb;charset=utf8', 'root', '');
-    }
-    catch (Exception $e)
-    {
-        die('Erreur'. $e->getmessage());
-    }
-    ?>
-    <meta charset="utf-8"/>
-    <link rel="stylesheet" href="StyleInscription.css">
-   
 <title> Minute Papillon : Choix de Liste</title>
 </head>
+<!-- Formulaire pour retourner à la page d'accueil sans se déconnecter de la session utilisée -->
 <form action ="index.php" method="post">
 <input type="submit" name="indexBouton" class="bouton" value="Accueil">
 </form>
+<!-- Formulaire pour se déconnecter de la session en cours -->
 <form action="deconnexion.php" method="post">
 <input type="submit" name="decoButton" class="bouton" value="Deconnexion">
 </form>
 <body>    
 <div>
-    <div class="header"> Création de votre liste
-    </div>
-    <p class="creationNouvelleListe"> Pour créer votre liste: </br>
-    <form action="CreationListe.php" method="post">
-       <div class="input-group">
-			<button type="submit" class="bouton" name="Creation_List">Créer une liste</button>
-		</div>     
-                       
+<!-- Formulaire pour créer une nouvelle liste en accédant à la page CreationListe.php -->
+<div class="header"> Création de votre liste
+</div>
+<p class="creationNouvelleListe"> Pour créer votre liste: </br>
+<form action="CreationListe.php" method="post">
+    <div class="input-group">
+        <button type="submit" class="bouton" name="Creation_List">Créer une liste</button>
+    </div>     
+                    
+    </form>  
+    <!--Formulaire pour choisir une liste déjà crée par l'utilisateur de la session -->
+<div class="chooseList">
+<p class="choixNouvelleListe"> Choisir une liste déjà crée: </p>
+    <form action="VotreTache.php" method="post">
+    <SELECT name="ChoixDeVotreListe">
+    <?php
+    /* On récupère une nouvelle fois la variable de la session de l'utilisateur afin de choisir les listes crée par cet utilisateur uniquement. */
+    $idUtilisateurFK = $_SESSION['id_utilisateur'];
+    $reponse = $bdd->query("SELECT nom_liste, id_liste FROM liste WHERE id_utilisateur = '$idUtilisateurFK'");
+    while($data = $reponse->fetch())
+    {
+        ?>
+        <option value=<?php echo $data['id_liste']?>> <?php echo $data['nom_liste']; ?></option>       
+    <?php
+    }
+    ?>
+    </SELECT>
+        <?php 
+    ?>
+    <input name="submit" type="submit">
         </form>  
-        <!-- Liste déroulante permettant à l'utilisateur de sélectionner la liste crée-->
-    <div class="chooseList">
-    <p class="choixNouvelleListe"> Choisir une liste déjà crée: </p>
-        <form action="VotreListe.php" method="POST">
-        <SELECT name="ChoixDeVotreListe">
-        
-        <!--<OPTION class="premierChoix">-->
-        <?php
-        
-        // On recupère bien les listes mais pas celles liées à l'id
-        //Solution actuelle 09/02 : On essaye de récupérer l'idée grâce à :
-        //Cela marche, il manque simplement de les afficher bien comme il faut dans la liste.
-        $idUtilisateurFK = $_SESSION['id_utilisateur'];
-        $reponse = $bdd->query("SELECT nom_liste FROM liste WHERE id_utilisateur = '$idUtilisateurFK'");
-        //$reponse ->execute();
-        //echo $reponse;
-        while($data = $reponse->fetch())
-        {
-            ?>
-            <option><?php echo $data['nom_liste']; ?>"</option>
-            
-        <?php
-        }
-        ?>
-        </SELECT>
-            <?php 
-        /*$reponse = $bdd->query('SELECT nom_liste FROM liste WHERE id_utilisateur=2');
-        while ($donnees = $reponse->fetch())
-        {
-            echo $donnees['nom_liste'];
-        }
-            $reponse->closeCursor();
-        ?>
-        </OPTION>
-        <OPTION>
-            <?php 
-        $reponse = $bdd->query('SELECT nom_liste FROM liste WHERE id_liste=3');
-        while ($donnees = $reponse->fetch())
-        {
-            echo $donnees['nom_liste'];
-        }
-            $reponse->closeCursor();
-        ?>
-        </OPTION>
-       
-        </SELECT>
-        */
-        ?>
-        <div class="input-group">
-			<button type="submit" class="bouton" name="choixListe">Séléctionner</button>
-		</div>
-         </form>  
-    </div>    
-      
-   
+</div>     
 </div>    
 </body>
 </html>

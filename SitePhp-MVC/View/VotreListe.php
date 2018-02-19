@@ -1,9 +1,8 @@
- <!-- Vérification de la session en cours, si elle n'existe pas, elle est générée --> 
+ <!-- Page de visualisation de la to do list -->
+ 
+ <!-- Démarrage de la session pour récupérer les données $_SESSION --> 
   <?php
-  //On teste juste en mettant uniquement un session start pour simplement récupérer la session en cours.
-    //if(!isset($_SESSION)){
         session_start();
-    //}
   ?>
   <!--Affiche le pseudo de la session connectée. -->
   <?php
@@ -11,17 +10,15 @@
     {
         echo 'Session en cours : '. $_SESSION['pseudo']. '.';
     }
-    echo "Après id";
-   
     ?>
 <html>
 <head>
-    <!--Inclusion du fichier server.php -->
+    <!--Inclusion du fichier server.php pour la transmission des requêtes. -->
     <?php include('server.php') ?>
     
-     <!-- Se connecter avec ma base sur phpMyAdmin 
-    J'applique un try catch pour capturer l'erreur afin de la traiter ultèrieurement. 
-    Et surtout ne pas afficher des informations comprométantes à l'utilisateur.-->
+<!-- Connexion à la base de données -->
+<!-- Application d'un try catch pour capturer l'erreur afin de la traiter ultèrieurement. 
+Et vérification de la connexion à la base de données. -->
      <?php
     try
     {
@@ -33,7 +30,6 @@
         die('Erreur'. $e->getmessage());
     }
     ?>
-
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="StyleInscription.css">
 </head> 
@@ -48,80 +44,65 @@
 </form>
 </div>
 
-
 <div>
-<!--Afficher la liste choisie par l'utilisateur-->
-<p> <h2 class="ListChosen">Liste choisie:
+<!--Afficher la liste choisie par l'utilisateur à l'aide d'une requête sur la base de données.-->
+<p> <h2 class="ListChosen">Liste choisie:</p>
 <?php
-echo $_POST['ChoixDeVotreListe'];
-//On crée une variable qui va prendre la valeur choisie dans la liste déroulante de la page ChoixListe
-$choiceFromListe = $_POST['ChoixDeVotreListe'];
-echo $choiceFromListe;
+$idListFrom = $_SESSION['choixDeLaListe'];
+$reqFindNameList = $bdd->query("SELECT nom_liste, id_liste FROM liste WHERE id_liste = '$idListFrom'");
+while($donnees = $reqFindNameList -> fetch()){
+        echo $donnees['nom_liste'];
+    }
+    $reqFindNameList->closeCursor();
 ?>
-<SELECT>
-<?php
-$reqListe= $bdd-> query("SELECT id_liste FROM liste WHERE nom_liste = '$choiceFromListe'");
-//$reqListe-> execute();
-while($data = $reqListe->fetch()){
-    //$idListeChoisie = $data['id_liste'];
-    ?>
-    <option><?php echo $data['id_liste']; ?>"</option>
-<?php
-}
-?>
-</SELECT>
-
 </h2>
-</p>
-
-
 </div>
 <title> Minute Papillon : Organiser votre travail.</title>
 <body>
-    <!-- Division des principaux éléments en conteneur. Cela tendra à disparaître mais c'était pour m'habituer à bien utiliser flexbox. -->
+    <!-- Division des principaux éléments en conteneur. Utilisation de flexbox -->
     <div id="ConteneurGlobal">                    
     <!-- Conteneur pour l'espace TO DO -->               
-        <div class="header">TO DO:
+        <div class="header">TO DO: 
         <form id="formCreationTache" method="submit" action="VotreTache.php">
-            <input class="bouton" type="submit" name="boutonNouvelleTache" value="Créer Tâche">
+            
+            <input class="bouton" type="submit" style="hidden" name="boutonNouvelleTache" id="boutonCreerTache" value="Créer Tâche">
         </form>    
 
             <div class="input-group">
             <label>Intitulé:</label>
-            <p id="nomTacheChoisie">       
-            <?php
-            //Requête permettant de récupérer la dernière tâche rentrée par l'utilisateur. DESC LIMIT permet de prendre le dernier id par ordre décroissant.
-            //le mot clé prepare ne marche pas. Il faut mettre query. Pourquoi ? Pour le moment, j'ai pas trouvé.'
-             $reponse = $bdd->query('SELECT nom_tache FROM tache ORDER BY id_tache DESC LIMIT 1');
+            <p id="nomTacheChoisie">      
+            <?php 
+            /* Requête SQL permettant d'afficher le nom de la dernière tâche crée par l'utilisateur avec la liste liée */
+            $idListGet = $_SESSION['choixDeLaListe'];
+            $reponse = $bdd->query("SELECT nom_tache, id_liste FROM tache  WHERE id_liste = '$idListGet' ORDER BY id_tache DESC LIMIT 1 ");
             while ($donnees = $reponse->fetch())
             {
                 echo $donnees['nom_tache'];
             }
             $reponse->closeCursor();
-   
-            ?>
+        ?>
             </p> 
             </div>
-
             <div class="input-group">
             <label>Priorité :</label>
             <p id="prioriteTacheChoisie">
             <?php
+            /* Requête SQL permettant d'afficher la priorité de la tâche */
             $reponse = $bdd->query('SELECT priorite_tache FROM tache ORDER BY id_tache DESC LIMIT 1');
             while ($donnees = $reponse->fetch())
             {
                 echo $donnees['priorite_tache'];
             }
-            $reponse->closeCursor();
+            $reponse->closeCursor(); 
             ?>
             </p>      
             </div>
-
             <div class="input-group">
             <label>Date :</label>
             <p id="dateTacheChoisie">
             <?php
-            $reponse = $bdd->query('SELECT date_tache FROM tache ORDER BY id_tache DESC LIMIT 1');
+            /* Requête SQL afin d'afficher la date de la tâche associée. */
+            $reponse = $bdd->query('SELECT date_tache, id_liste FROM tache ORDER BY id_tache DESC LIMIT 1');
             while ($donnees = $reponse->fetch())
             {
                 echo $donnees['date_tache'];
@@ -131,12 +112,9 @@ while($data = $reqListe->fetch()){
         </p>
     </div>    
 </form>
-  
 </div>
-<!-- Conteneur pour le bouton de TO DO à IN PROGRESS -->
 
 <!-- Conteneur pour l'espace IN PROGRESS -->
-
         <div class="header">IN PROGRESS:
             <input  type="submit" id="boutonTransfert" class="bouton" value="Transfert">
             <input type="submit" id="boutonAnnulerInProgress" class ="bouton" value="Annuler">
@@ -201,15 +179,16 @@ while($data = $reqListe->fetch()){
 </div>
  
 </body>
+
 </html>
 <script>
-// Inclusion du Javascript.
-// Test de transfert des données entre les deux formulaires par l'usage d'un bouton et de javascript
-// Cela fonctionne toutefois le code ne paraît peut être pas encore très propre.
+/** JAVASCRIPT **/
+
 //Déclation préalable des boutons pour annuler.
     var boutonQuiTransfert = document.getElementById('boutonTransfert');
     var boutonQuiAnnuleInProgress = document.getElementById('boutonAnnulerInProgress');
     var boutonQuiAnnuleToVerify = document.getElementById('boutonAnnulerToVerify');
+    var boutonCreerNouvelleTache = document.getElementById('boutonCreerTache');
     var nomTacheInProgress = document.getElementById('nomTacheChoisieInProgress');
     var nomTacheToDo = document.getElementById('nomTacheChoisie').innerHTML;
     var prioriteTacheToDo =document.getElementById('prioriteTacheChoisie').innerHTML;
@@ -222,8 +201,9 @@ while($data = $reqListe->fetch()){
     //Définition des boutons à invisible au départ
     boutonQuiAnnuleInProgress.style.display = "hidden";
     boutonQuiAnnuleToVerify.style.display = "hidden";
+    boutonCreerNouvelleTache.style.visibility ="hidden";
 
-    
+   // Fonction permettant le transfert de la tâche de TO DO à in PROGRESS; 
    boutonQuiTransfert.onclick = function() {
       
        document.getElementById('nomTacheChoisieInProgress').innerHTML = document.getElementById('nomTacheChoisie').innerHTML;
@@ -279,6 +259,7 @@ while($data = $reqListe->fetch()){
         document.getElementById('boutonQuiVerify').style.visibility = 'hidden';
         document.getElementById('boutonAnnulerInProgress').style.visibility = 'hidden';
         document.getElementById('boutonAnnulerToVerify').style.visibility = 'hidden';
+        document.getElementById('boutonCreerTache').style.visibility = 'visible';
     };
     boutonQuiAnnule.onclick = function() {
         nomTacheInProgress.innerHTML = "";
@@ -287,7 +268,6 @@ while($data = $reqListe->fetch()){
         document.getElementById('dateToVerify').innerHTML = constDateTaskChosen;
         document.getElementById('nomDone').innerHTML = "";
         document.getElementById('prioriteDone').innerHTML = "";
-        document.getElementById('dateDone').innerHTML = "";
-        
+        document.getElementById('dateDone').innerHTML = "";   
     };
 </script>
