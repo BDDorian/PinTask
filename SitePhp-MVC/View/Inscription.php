@@ -2,6 +2,9 @@
 
 <!-- Lancement de la session afin de pouvoir récupérer les variables globales de la session connectée -->
 <?php
+/**
+ * @brief : Page d'inscription d'un nouvel utilisateur. Un formulaire est mis à sa disposition.
+ */
 session_start();
 ?>
 <!-- Affichage du pseudo de la session conntectée -->
@@ -24,7 +27,7 @@ if (isset($_SESSION['idUtilisateur']) AND isset($_SESSION['pseudo']))
 -->
 <head>
 <title>Minute Papillon: Création du compte</title>
-<link rel="stylesheet" type="text/css" href="StyleInscription.css">
+<link rel="stylesheet" type="text/css" media="screen" href="StyleInscription.css">
 <!-- Connexion à la base de données -->
 <!-- Application d'un try catch pour capturer l'erreur afin de la traiter ultèrieurement. 
 Et vérification de la connexion à la base de données. -->
@@ -39,6 +42,11 @@ Et vérification de la connexion à la base de données. -->
 	}
 ?>
 </head>
+<div id="menu">
+  <ul id="onglets">
+	<li class="active"><a href="index.php"> Accueil </a></li>
+</ul>
+</div>	
 <body>
 <div class="header">
 	<h2>Création de votre compte</h2>

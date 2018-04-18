@@ -33,22 +33,18 @@ Et vérification de la connexion à la base de données. -->
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="StyleInscription.css">
 </head> 
-<div class="input-group">
-<form action="index.php" method="post">
-<div id="deuxiemeBoutonNav"><input type ="submit" name ="accueilBouton" class ="boutonHome" value="Accueil">
+<div id="menu">
+  <ul id="onglets">
+    <li class="active"><a href="index.php"> Accueil </a></li>
+    <li class="active"><a href="deconnexion.php">Déconnexion </a></li>
+</ul>
 </div>
-</form>
-<form action="deconnexion.php" method="post">
-<div id="premierBoutonNav"><input type="submit" name="deconnexionBouton" class="boutonDeconnexion" value="Déconnexion">
-</div>
-</form>
-</div>
-
 <div>
 <!--Afficher la liste choisie par l'utilisateur à l'aide d'une requête sur la base de données.-->
 <p> <h2 class="ListChosen">Liste choisie:</p>
 <?php
 $idListFrom = $_SESSION['choixDeLaListe'];
+//Requête crée pour récupérer le nom de la liste sélectionnée sur choixListe.php et l'afficher sur cette page.
 $reqFindNameList = $bdd->query("SELECT nom_liste, id_liste FROM liste WHERE id_liste = '$idListFrom'");
 while($donnees = $reqFindNameList -> fetch()){
         echo $donnees['nom_liste'];
@@ -159,7 +155,7 @@ while($donnees = $reqFindNameList -> fetch()){
 <!-- Conteneur pour l'espace DONE -->    
         <div class="header">DONE:
             <input  type="submit" id="boutonQuiDone" class="bouton" value="Transfert" style ="hidden">
-
+            <input type="submit" name="boutonQuiSupprime" class ="bouton" value="Supprimer" style ="hidden">
             <div class="input-group">
             <label>Intitulé :</label>
             <p id="nomDone"></p>
@@ -260,6 +256,7 @@ while($donnees = $reqFindNameList -> fetch()){
         document.getElementById('boutonAnnulerInProgress').style.visibility = 'hidden';
         document.getElementById('boutonAnnulerToVerify').style.visibility = 'hidden';
         document.getElementById('boutonCreerTache').style.visibility = 'visible';
+        //document.getElementById('boutonQuiTransfert').disabled = 'true';
     };
     boutonQuiAnnule.onclick = function() {
         nomTacheInProgress.innerHTML = "";

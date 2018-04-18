@@ -19,8 +19,12 @@ if (isset($_SESSION['id_utilisateur']) AND isset($_SESSION['pseudo']))
     <?php
     echo 'Id de la session : ' .$_SESSION['id_utilisateur'];     
 }
+else{
+    echo "jepassepasparlasession.com";
+}
 /* Récupération de la clé étrangère id_utilisateur afin de pouvoir l'insérer dans la table liste. */
 $idUtilisateurFK = $_SESSION['id_utilisateur'];
+
 ?>    
 <!-- Connexion à la base de données -->
 <!-- Application d'un try catch pour capturer l'erreur afin de la traiter ultèrieurement. 
@@ -40,14 +44,13 @@ catch (Exception $e)
 
 <title> Minute Papillon : Choix de Liste</title>
 </head>
-<!-- Formulaire pour retourner à la page d'accueil sans se déconnecter de la session utilisée -->
-<form action ="index.php" method="post">
-<input type="submit" name="indexBouton" class="bouton" value="Accueil">
-</form>
-<!-- Formulaire pour se déconnecter de la session en cours -->
-<form action="deconnexion.php" method="post">
-<input type="submit" name="decoButton" class="bouton" value="Deconnexion">
-</form>
+<div id="menu">
+  <ul id="onglets">
+    <li class="active"><a href="Accueil.php"> Accueil </a></li>
+    <li><a href="deconnexion.php"> Déconnexion </a></li> 
+  </ul>
+</div>
+
 <body>    
 <div>
 <!-- Formulaire pour créer une nouvelle liste en accédant à la page CreationListe.php -->

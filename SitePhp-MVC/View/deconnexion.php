@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="StyleInscription.css">
 
 <p class="messageError"> Déconnexion réussie ! </p>
-<form action="index.php">
+<form id="formButton" action="index.php">
 <button type="submit"class="bouton" name="retourAccueil">Retourner à la page d'accueil</button>
 </form>
 <?php 

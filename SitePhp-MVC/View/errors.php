@@ -1,6 +1,7 @@
 <!-- Page d'erreurs sur les champs de création de l'utilisateur, de listes ou encore de tâches. -->
 
 <? php include('server.php');
+
 ?>
 <!-- Comptabilisation des erreurs lors de la création de l'utilisateur -->
 <?php  if (count($errorsLogin) > 0) : ?>

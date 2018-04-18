@@ -42,13 +42,12 @@ catch (Exception $e)
 </head>
 <nav>
 <!-- Formulaire pour retourner à la page d'accueil sans se déconnecter de la session utilisée -->
-<form action ="index.php" method="post">
-<input type="submit" name="indexBouton" class="bouton" value="Accueil">
-</form>
-<!-- Formulaire pour se déconnecter de la session en cours -->
-<form action="deconnexion.php" method="post">
-<input type="submit" name="decoButton" class="bouton" value="Deconnexion">
-</form>
+<div id="menu">
+  <ul id="onglets">
+    <li class="active"><a href="index.php"> Accueil </a></li>
+    <li class="active"><a href="deconnexion.php">Déconnexion </a></li>
+</ul>
+</div>
 </nav>
 <body>
 <div>    

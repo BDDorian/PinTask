@@ -53,7 +53,12 @@ catch (Exception $e)
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
-
+<div id="menu">
+  <ul id="onglets">
+    <li class="active"><a href="index.php"> Accueil </a></li>
+    <li class="active"><a href="deconnexion.php">Déconnexion </a></li>
+</ul>
+</div>
 <body>
 <div>    
     <title> Minute Papillon : Création de Tâche</title>

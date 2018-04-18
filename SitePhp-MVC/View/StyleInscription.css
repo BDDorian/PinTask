@@ -225,6 +225,11 @@ width: 30%;
 
   }
 
+  #formButton{
+	  
+	  
+  }
+
   /*** Style pour les boutons dans votre Liste, barre de navigation ***/
   .boutonDeconnexion{
 
@@ -251,9 +256,61 @@ width: 30%;
 		margin: auto;
 	
  }
+
 /* Régles CSS pour les mobiles */
- @media all and (max-device-width: 480px)
- {
-	 width: auto;
-	 /* Vos règles CSS pour les mobiles ici */
+ @media screen and (max-width: 500px){
+	 .input-group {width: 100%;}
+	 body { width : 100%; height: auto;}
+	 .header{height: auto;}
+	 form {width: 100%; height: auto;}
+	 title {width: 100%; height: auto;}
+	 head {width: 100%; height: auto;}
+	 /*Spécifités sur la page index.php */
+	 .Conteneur2 {width : 100%; height: auto;}
+	 .Conteneur3 {width : 100%; height: auto;}
+	 /*Spécifités sur la page creationListe.php */
+	 .ConteneurChampListe{ width: 100%; height: auto;}
+	 /*Spécifités sur la page ChoixListe.php */
+	 .chooseList { width: 100%; height: auto;}
+
  }
+
+ #onglets
+ {
+	 font : bold 11px Batang, arial, serif;
+	 display: flex;
+	 justify-content: center;
+	 list-style-type : none;
+	 margin-left : 0;
+ }
+
+ #onglets li
+ {
+	 float : center;
+	 height : 21px; /* à modifier suivant la taille de la police pour centrer le texte dans l'onglet */
+	 background-color: #33ACFF;
+	 margin : 2px 2px 0 2px !important;  /* Pour les navigateurs autre que IE */
+	 margin : 1px 2px 0 2px;  /* Pour IE  */
+	 border : 1px solid #33ACFF;
+ }
+
+ #onglets li.active
+ {
+	 border-bottom: 1px solid #fff;
+	 /*background-color: #fff;*/
+ }
+
+ #onglets a
+ {
+	 display : block;
+	 color :#ffffff;
+	 text-decoration : none;
+	 padding : 4px;
+ }
+
+ #onglets a:hover
+ {
+	 background-color: #6a89cc;
+ }
+ 
+ 

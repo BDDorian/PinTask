@@ -1,8 +1,13 @@
-<!-- Page : Index.php Inscription de l'utilisateur et connexion du compte -->
 
 
 <!--Boucle permettant la vérifaition de l'existence d'une session. Si la session n'est pas crée, elle sera alors générée avec le pseudo correspondant.-->
 <?php
+/**
+ * @brief : Page d'accueil du site Minute-Papillon. L'utilisateur peut soit s'inscrire ou se connecter à un compte déjà existant.
+ */
+/**
+ * @brief: Boucle permettant la vérification de l'existence d'une session.
+ */
 if (isset($_SESSION['idUtilisateur']) AND isset($_SESSION['pseudo']))
 {
     echo 'Session en cours: '. $_SESSION['pseudo']. '.';
@@ -17,6 +22,9 @@ if (isset($_SESSION['idUtilisateur']) AND isset($_SESSION['pseudo']))
 <!-- Application d'un try catch pour capturer l'erreur afin de la traiter ultèrieurement. 
 Et vérification de la connexion à la base de données. -->
 <?php
+/**
+ * @brief: Connexion à la base de données.
+ */
 try
 {
     $bdd =  new PDO('mysql:host=localhost;dbname=minutepapillondb;charset=utf8', 'root', '');
@@ -30,7 +38,6 @@ catch (Exception $e)
 <!-- style appliqué pour les grand écrans -->
 <link rel="stylesheet" href="StyleInscription.css">
 </head> 
-
 <title> Minute Papillon : Organiser votre travail.</title>
 <body>
 <!-- Division des principaux éléments en conteneur. Utilisation de flexbox afin de mieux organiser le rendu du site -->
